@@ -13,6 +13,9 @@ public:
 
 protected:
     void incomingConnection(qintptr socketDescriptor) Q_DECL_OVERRIDE;
+
+private slots:
+	void acceptErrorSlot(QAbstractSocket::SocketError socketError);
 };
 
 #endif // SERVER_H

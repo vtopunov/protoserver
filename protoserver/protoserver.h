@@ -13,6 +13,10 @@ public:
 	protoserver(QWidget *parent = 0);
 	~protoserver();
 
+public slots:
+	void listen();
+	void tcpclose();
+
 private:
 	Ui::protoserverClass ui;
 	Server server;

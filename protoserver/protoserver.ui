@@ -1,25 +1,115 @@
-<UI version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>protoserverClass</class>
- <widget class="QWidget" name="protoserverClass" >
-  <property name="objectName" >
-   <string notr="true">protoserverClass</string>
-  </property>
-  <property name="geometry" >
+ <widget class="QWidget" name="protoserverClass">
+  <property name="geometry">
    <rect>
-	<x>0</x>
-	<y>0</y>
-	<width>600</width>
-	<height>400</height>
+    <x>0</x>
+    <y>0</y>
+    <width>253</width>
+    <height>170</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>protoserver</string>
   </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>1</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Port</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="port">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>65535</number>
+       </property>
+       <property name="value">
+        <number>8080</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="listen">
+       <property name="text">
+        <string>Listen</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="close">
+       <property name="text">
+        <string>Close</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>118</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
  </widget>
- <layoutDefault spacing="6" margin="11" />
- <pixmapfunction></pixmapfunction>
+ <layoutdefault spacing="6" margin="11"/>
  <resources>
-   <include location="protoserver.qrc"/>
+  <include location="protoserver.qrc"/>
  </resources>
- <connections/>
-</UI>
+ <connections>
+  <connection>
+   <sender>close</sender>
+   <signal>clicked()</signal>
+   <receiver>protoserverClass</receiver>
+   <slot>tcpclose()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>205</x>
+     <y>21</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>126</x>
+     <y>84</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>listen</sender>
+   <signal>clicked()</signal>
+   <receiver>protoserverClass</receiver>
+   <slot>listen()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>129</x>
+     <y>21</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>126</x>
+     <y>84</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>listen()</slot>
+  <slot>tcpclose()</slot>
+ </slots>
+</ui>
