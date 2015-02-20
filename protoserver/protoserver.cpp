@@ -12,7 +12,7 @@ protoserver::protoserver(QWidget *parent)
 protoserver::~protoserver()
 {
 
-}
+} 
 
 void protoserver::listen() {
 	if (server.isListening()) {
