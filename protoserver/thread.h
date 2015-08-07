@@ -18,9 +18,6 @@ protected:
 signals:
     void error(QTcpSocket::SocketError socketError);
 
-private slots:
-	void disconnected();
-
  private:
 	 qintptr hsocket_;
 };

@@ -20,12 +20,9 @@ void thread::run()
 		emit error(socket_.error());
 	}
 
-	connect(&socket_, SIGNAL(disconnected()), this, SLOT(disconnected()), Qt::QueuedConnection);
-
-	
 	qDebug() << "SQL> SELECT ololo FROM ololos\n";
 
-	QThread::msleep(1000); // sql test
+	QThread::msleep(5000); // sql test
 
 	qDebug() << "write request to " 
 		<< socket_.peerAddress().toString() 
@@ -37,8 +34,4 @@ void thread::run()
 	socket_.disconnectFromHost();
 	socket_.waitForDisconnected();
 	qDebug() << "disconect ok";
-}
-
-void thread::disconnected() {
-	qDebug() << "disconect slot";
 }
