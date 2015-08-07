@@ -1,11 +1,40 @@
-#include "log.h"
 #include "protoserver.h"
 
 protoserver::protoserver(QWidget *parent)
-	: QWidget(parent), server()
+	: QWidget(parent)
 {
 	ui.setupUi(this);
-	
+
+	auto server = new Server(this);
+
+	const auto enabledClose = [this](bool isEnabled) {
+		this->ui.listen->setEnabled(!isEnabled);
+		this->ui.close->setEnabled(isEnabled);
+		this->ui.port->setEnabled(!isEnabled);
+	};
+
+	const auto listen = [this, server, enabledClose]() {
+		if (server->isListening()) {
+			this->ui.port->setValue(server->serverPort());
+		}
+		else {
+			server->listen(QHostAddress::Any, this->ui.port->value());
+			qDebug() << "start listen on *:" << ui.port->value();
+		}
+
+		enabledClose(true);
+	};
+
+	const auto close = [server, enabledClose]() {
+		qDebug() << "close";
+		server->close();
+		enabledClose(false);
+	};
+
+	QObject::connect(ui.listen, &QPushButton::clicked, listen);
+
+	QObject::connect(ui.close, &QPushButton::clicked, close);
+
 	listen();
 }
 
@@ -14,27 +43,4 @@ protoserver::~protoserver()
 
 } 
 
-void protoserver::listen() {
-	if (server.isListening()) {
-		ui.port->setValue(server.serverPort());
-	}
-	else {
-		server.listen(QHostAddress::Any, ui.port->value());
-	}
 
-	ui.listen->setEnabled(false);
-	ui.close->setEnabled(true);
-	ui.port->setEnabled(false);
-
-	LOG("start listen on *:%d\n", ui.port->value());
-}
-
-void protoserver::tcpclose() {
-	LOG("close\n");
-
-	server.close();
-
-	ui.listen->setEnabled(true);
-	ui.close->setEnabled(false);
-	ui.port->setEnabled(true);
-}

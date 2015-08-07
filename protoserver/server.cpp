@@ -1,4 +1,3 @@
-#include "log.h"
 #include "server.h"
 #include "thread.h"
 
@@ -20,6 +19,6 @@ void Server::incomingConnection(qintptr socket)
 }
 
 void Server::acceptErrorSlot(QAbstractSocket::SocketError socketError) {
-	LOG("QTcpServer: accept error %d\n", socketError);
+	qDebug() << "QTcpServer: accept error " << socketError;
 }
 

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'protoserver.ui'
 **
-** Created by: Qt User Interface Compiler version 5.4.0
+** Created by: Qt User Interface Compiler version 5.4.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -79,8 +79,6 @@ public:
 
 
         retranslateUi(protoserverClass);
-        QObject::connect(close, SIGNAL(clicked()), protoserverClass, SLOT(tcpclose()));
-        QObject::connect(listen, SIGNAL(clicked()), protoserverClass, SLOT(listen()));
 
         QMetaObject::connectSlotsByName(protoserverClass);
     } // setupUi

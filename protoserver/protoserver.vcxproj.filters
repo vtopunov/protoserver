@@ -90,8 +90,5 @@
     <ClInclude Include="GeneratedFiles\ui_protoserver.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="log.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

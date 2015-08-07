@@ -74,40 +74,7 @@
  <resources>
   <include location="protoserver.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>close</sender>
-   <signal>clicked()</signal>
-   <receiver>protoserverClass</receiver>
-   <slot>tcpclose()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>205</x>
-     <y>21</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>126</x>
-     <y>84</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>listen</sender>
-   <signal>clicked()</signal>
-   <receiver>protoserverClass</receiver>
-   <slot>listen()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>129</x>
-     <y>21</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>126</x>
-     <y>84</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
  <slots>
   <slot>listen()</slot>
   <slot>tcpclose()</slot>

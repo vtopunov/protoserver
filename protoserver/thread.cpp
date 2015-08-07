@@ -1,17 +1,9 @@
-#include "log.h"
 #include "thread.h"
 
 thread::thread(qintptr hsocket, QObject* parent) :
     QThread(parent),
-	hsocket_(hsocket),
-	socket_(new QTcpSocket(this))
+	hsocket_(hsocket)
 {
-	if (!socket_->setSocketDescriptor(hsocket)) {
-		LOG(q_c_str(socket_->errorString()+"\n"));
-		emit error(socket_->error());
-	}
-
-	connect(socket_, SIGNAL(disconnected()), this, SLOT(disconnected()));
 }
 
 thread::~thread() {
@@ -19,27 +11,34 @@ thread::~thread() {
 
 void thread::run()
 {
-	LOG("starting thread %d\n", (int)currentThreadId());
-	QTcpSocket socket;
-	if (!socket.setSocketDescriptor(hsocket_)) {
-		LOG(q_c_str(socket.errorString() + "\n"));
-		emit error(socket.error());
-		return;
+	qDebug() << "starting thread " << (int)currentThreadId();
+
+	QTcpSocket socket_;
+
+	if (!socket_.setSocketDescriptor(hsocket_)) {
+		qWarning() << socket_.errorString();
+		emit error(socket_.error());
 	}
 
-	LOG("SQL> SELECT ololo FROM ololos\n");
+	connect(&socket_, SIGNAL(disconnected()), this, SLOT(disconnected()), Qt::QueuedConnection);
+
+	
+	qDebug() << "SQL> SELECT ololo FROM ololos\n";
 
 	QThread::msleep(1000); // sql test
 
-	LOG("write request to %s\n", q_c_str(socket.peerAddress().toString() + ":" + QString::number(socket.peerPort()) ) );
-	socket.write(QByteArray(100000000, '$'));
+	qDebug() << "write request to " 
+		<< socket_.peerAddress().toString() 
+		+ ":" + QString::number(socket_.peerPort());
 
-	LOG("disconect...\n");
-	socket.disconnectFromHost();
-	socket.waitForDisconnected();
-	LOG("disconect ok\n");
+	socket_.write(QByteArray(100000000, '$'));
+
+	qDebug() << "disconect";
+	socket_.disconnectFromHost();
+	socket_.waitForDisconnected();
+	qDebug() << "disconect ok";
 }
 
 void thread::disconnected() {
-	LOG("disconect ok\n");
+	qDebug() << "disconect slot";
 }

@@ -23,7 +23,6 @@ private slots:
 
  private:
 	 qintptr hsocket_;
-	 QTcpSocket* socket_;
 };
 
 #endif // THREAD_H
